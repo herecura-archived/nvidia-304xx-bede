@@ -6,10 +6,10 @@
 _pkgname=nvidia
 pkgname="$_pkgname-304xx-bede"
 pkgver=304.131
-_extramodules=4.7-BEDE-external
-_current_linux_version=4.7.7
-_next_linux_version=4.8
-pkgrel=9
+_extramodules=4.8-BEDE-external
+_current_linux_version=4.8.1
+_next_linux_version=4.9
+pkgrel=10
 pkgdesc="NVIDIA 304xx drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -63,7 +63,6 @@ package() {
         "nvidia-304xx-utils=$pkgver"
         "nvidia-304xx-libgl=$pkgver"
     )
-    install=nvidia.install
 
     install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
         "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
@@ -74,6 +73,4 @@ package() {
 
     # gzip all modules
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
-
-    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
